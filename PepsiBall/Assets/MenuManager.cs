@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MenuManager : MonoBehaviour
+
+{
+    public static MenuManager MenuManagerInstance;
+    public bool GameState;
+    public GameObject menuElement;
+    
+    void Start()
+    {
+        GameState = false; 
+        MenuManagerInstance = this;
+    }
+
+    // Update is called once per frame
+    public void StartTheGame()
+    {
+        GameState = true;
+        menuElement.SetActive(false);
+    }
+    public void Retry_btn()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}
