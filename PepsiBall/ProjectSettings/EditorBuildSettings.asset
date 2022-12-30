@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/PepsiBall.unity
+    guid: 7cc0c506d603f324e8d2eb5159774741
+  - enabled: 1
+    path: Assets/Scenes/pepsiball 2.unity
+    guid: 6794ce6b2c5e1144e84a394977f35350
   m_configObjects: {}

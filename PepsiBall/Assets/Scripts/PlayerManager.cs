@@ -15,21 +15,48 @@ public class PlayerManager : MonoBehaviour
     private float velocity,camVelocity;
     private Camera mainCam;
     public Transform path;
+
     public GameObject EndScreen;
+    public GameObject GScreen;
+    public GameObject sliderrrr;
+    public float speedcont = 0.01f;
 
     public Text Scoretext;
-    public int score = 0 ; 
+    public int score = 0 ;
+    public Text scorefinal ;
+    
+    
+    public int scoreat;
+    public Text scorealltime;
+    
+    public Slider slider;
+
+    
+
+
 
     // Start is called before the first frame update
      void Start()
     {
+        score = 0; 
         ball = transform;
         mainCam = Camera.main;
+
+        if (PlayerPrefs.HasKey("scoreat"))
+        {
+            score= PlayerPrefs.GetInt("scoreat"); 
+        }
+
+        scorealltime.text = " Pepsi Collected :  " + score;
+
+
+
     }
 
 // Update is called once per frame
     void Update()
  {
+
    if (Input.GetMouseButtonDown(0))
      {
          moveTheBall = true;
@@ -68,37 +95,61 @@ public class PlayerManager : MonoBehaviour
 
      }
             if (MenuManager.MenuManagerInstance.GameState)
-        { 
+            { 
             var pathNewPos = path.position;
             path.position = new Vector3(pathNewPos.x,pathNewPos.y, Mathf.MoveTowards(pathNewPos.z, -1000f, pathspeed * Time.deltaTime));
+            
+            
+            
+            
+            
         }
-     }
-
-
-     private void LateUpdate()
-    {
         var CameraNewPos = mainCam.transform.position;
 
         mainCam.transform.position = new Vector3(Mathf.SmoothDamp(CameraNewPos.x, ball.transform.position.x, ref camVelocity, camSpeed)
             , CameraNewPos.y, CameraNewPos.z);
+        
+        
+            
+            
+        
+    }
 
-    } 
+
+   
       private void OnTriggerEnter(Collider other )
     {
         if (other.CompareTag("obstacle"))
         {
             gameObject.SetActive(false);
             MenuManager.MenuManagerInstance.GameState = false;
-            EndScreen.SetActive(true); 
+            EndScreen.SetActive(true);
+            
             
         }
         if (other.CompareTag("pepsi"))
         {
+            slider.value++;
+            pathspeed += 0.01f;
             score++;
-            Scoretext.text = score.ToString() ;  
+            Scoretext.text = score.ToString() ;
             Destroy(other.gameObject);
+            PlayerPrefs.SetInt("scoreat", score);
+            scorealltime.text = " Pepsi Collected : " + score; 
+
 
         }
-     }
+        if (other.CompareTag("won"))
+        {
+            Debug.Log("win");
+            gameObject.SetActive(false);
+            MenuManager.MenuManagerInstance.GameState = false;
+            GScreen.SetActive(true);
+            scorefinal.text = score.ToString();
+            
+        }
+
+    }
+
 
 }

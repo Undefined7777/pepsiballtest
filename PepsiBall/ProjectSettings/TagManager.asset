@@ -6,6 +6,7 @@ TagManager:
   tags:
   - obstacle
   - pepsi
+  - won
   layers:
   - Default
   - TransparentFX
